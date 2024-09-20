@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .employee-details {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-details div {
+            margin-bottom: 15px;
+        }
+
+        .employee-details label {
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .employee-details {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-details div {
+            margin-bottom: 15px;
+        }
+
+        .employee-details label {
+            font-weight: bold;
+        }
+
+        .generate-pdf-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Employee Details</h2>
+    <div class="employee-details" id="employeeDetails">
+        <!-- The employee details will be shown here -->
+    </div>
+    <button class="generate-pdf-btn" id="generatePdfBtn">Generate PDF</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Retrieve the stored data from localStorage
+        const employeeData = JSON.parse(localStorage.getItem('employeeData')) || {
+            firstName: "John",
+            lastName: "Doe",
+            email: "john.doe@example.com",
+            phone: "123-456-7890",
+            dob: "1990-01-01",
+            gender: "Male",
+            department: "IT",
+            jobTitle: "Developer",
+            hireDate: "2022-06-15",
+            status: "Full-Time"
+        };
+
+        const detailsDiv = document.getElementById('employeeDetails');
+        detailsDiv.innerHTML = `
+            <div><label>First Name:</label> ${employeeData.firstName}</div>
+            <div><label>Last Name:</label> ${employeeData.lastName}</div>
+            <div><label>Email:</label> ${employeeData.email}</div>
+            <div><label>Phone Number:</label> ${employeeData.phone}</div>
+            <div><label>Date of Birth:</label> ${employeeData.dob}</div>
+            <div><label>Gender:</label> ${employeeData.gender}</div>
+            <div><label>Department:</label> ${employeeData.department}</div>
+            <div><label>Job Title:</label> ${employeeData.jobTitle}</div>
+            <div><label>Hire Date:</label> ${employeeData.hireDate}</div>
+            <div><label>Employment Status:</label> ${employeeData.status}</div>
+        `;
+
+        // Function to generate the PDF
+        document.getElementById('generatePdfBtn').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text('Employee Details', 20, 20);
+
+            const details = `
+                First Name: ${employeeData.firstName}
+                Last Name: ${employeeData.lastName}
+                Email: ${employeeData.email}
+                Phone Number: ${employeeData.phone}
+                Date of Birth: ${employeeData.dob}
+                Gender: ${employeeData.gender}
+                Department: ${employeeData.department}
+                Job Title: ${employeeData.jobTitle}
+                Hire Date: ${employeeData.hireDate}
+                Employment Status: ${employeeData.status}
+            `;
+
+            doc.setFontSize(12);
+            doc.text(details, 20, 40);
+
+            doc.save('employee_details.pdf');
+        });
+    </script>
+</body>
+</html>

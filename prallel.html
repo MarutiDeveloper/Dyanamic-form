@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Layout</title>
+    <style>
+        .form-container {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Adjust space between items as needed */
+            flex-wrap: wrap; /* Allows items to wrap to the next line if there's not enough space */
+        }
+        .form-container > * {
+            flex: 1;
+        }
+        label, select, input, textarea {
+            margin: 5px; /* Add some space around the elements */
+        }
+        textarea {
+            resize: vertical; /* Allow vertical resizing of the textarea */
+            min-height: 50px; /* Set a minimum height for the textarea */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <label for="text-input">Input:</label>
+        <input type="text" id="text-input" placeholder="Enter text here">
+
+        <label for="theme-dropdown">Theme:</label>
+        <select id="theme-dropdown">
+            <option value="theme-light">Light</option>
+            <option value="theme-dark">Dark</option>
+        </select>
+
+        <label for="text-area">Details:</label>
+        <textarea id="text-area" placeholder="Enter details here"></textarea>
+    </div>
+</body>
+</html>

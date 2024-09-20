@@ -1,0 +1,36 @@
+
+.sidebar {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    width: 250px;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.sidebar a {
+    color: azure;
+    text-decoration: none;
+    }
+    .small-select {
+        font-size: 18px;
+        height: 33px;
+        width: 610px;
+    }
+    .small-label {
+        font-size: 16px;
+        display: inline-block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    

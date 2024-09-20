@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+    <!-- Container to display the generated fields -->
+    <div id="generated-fields"></div>
+    <!-- The dynamic fields will be added inside this container -->
+    <div id="fieldContainer"></div>
+    <script>
+        window.onload = function () {
+            const storedFormData = localStorage.getItem('dynamicFormData');
+            if (storedFormData) {
+                const formData = JSON.parse(storedFormData);
+                const generatedFieldsContainer = document.getElementById('generated-fields');
+
+                formData.forEach(fieldData => {
+                    const newField = document.createElement('div');
+                    newField.classList.add('new-field');
+
+                    if (fieldData.type === 'text') {
+                        const inputClone = document.createElement('input');
+                        inputClone.type = 'text';
+                        inputClone.value = fieldData.value;
+                        newField.appendChild(inputClone);
+                    } else if (fieldData.type === 'select') {
+                        const selectClone = document.createElement('select');
+                        // Recreate the select element with its value
+                        selectClone.value = fieldData.value;
+                        newField.appendChild(selectClone);
+                    }
+
+                    generatedFieldsContainer.appendChild(newField);
+                });
+            }
+        };
+    </script>
+</body>
+</html>

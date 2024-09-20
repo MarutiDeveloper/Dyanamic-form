@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .customer-details {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .customer-details div {
+            margin-bottom: 15px;
+        }
+
+        .customer-details label {
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .customer-details {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .customer-details div {
+            margin-bottom: 15px;
+        }
+
+        .customer-details label {
+            font-weight: bold;
+        }
+
+        .generate-pdf-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Customer Details</h2>
+    <div class="customer-details" id="customerDetails">
+        <!-- Customer details will be shown here -->
+    </div>
+
+    <button class="generate-pdf-btn" id="generatePdfBtn">Generate PDF</button>
+
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+                // Retrieve the stored customer data from localStorage
+                const customerData = JSON.parse(localStorage.getItem('customerData')) || {
+                    fullName: "Jane Doe",
+                    email: "jane.doe@example.com",
+                    phone: "987-654-3210",
+                    address: "123 Main St, Cityville, Country"
+                };
+
+                // Populate HTML with customer details
+                const detailsDiv = document.getElementById('customerDetails');
+                detailsDiv.innerHTML = `
+                    <div><label>Full Name:</label> ${customerData.fullName}</div>
+                    <div><label>Email:</label> ${customerData.email}</div>
+                    <div><label>Phone Number:</label> ${customerData.phone}</div>
+                    <div><label>Address:</label> ${customerData.address}</div>
+                `;
+                document.getElementById('generatePdfBtn').addEventListener('click', function() {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({
+                        unit: 'mm',         // Use millimeters for unit
+                        format: 'a4'        // Set paper size to A4
+                    });
+
+                    const margin = 4;         // Margin from the edges in mm
+                    const lineHeight = 6;     // Line height for spacing in mm
+                    const pageWidth = 100;     // A4 width in mm
+                    const pageHeight = 100;    // A4 height in mm
+
+                    // Set the title of the PDF
+                    doc.setFontSize(18);
+                    doc.setFont("helvetica", "bold");
+                    doc.text('Customer Details', margin, margin + 10);
+
+                    // Define the starting y position
+                    let yOffset = margin + 20;
+
+                    // Set the content of the PDF
+                    doc.setFontSize(14);
+                    doc.setFont("helvetica", "normal");
+                    
+                    const details = [
+                        `Full Name: ${customerData.fullName}`,
+                        `Email: ${customerData.email}`,
+                        `Phone Number: ${customerData.phone}`,
+                        `Address: ${customerData.address}`
+                    ];
+
+                    details.forEach((line, index) => {
+                        if (yOffset + lineHeight > pageHeight - margin) {
+                            doc.addPage(); // Add a new page if content exceeds current page
+                            yOffset = margin; // Reset yOffset for new page
+                        }
+                        doc.text(line, margin, yOffset);
+                        yOffset += lineHeight;
+                    });
+
+                    // Save the PDF
+                    doc.save('customer_details.pdf');
+                });
+    </script>
+</body>
+</html>

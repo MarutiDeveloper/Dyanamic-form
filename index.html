@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>BRAINTOWN</h2>
+            <nav>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Employee</a></li>
+                    <li><a href="#">Customer</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Left Form -->
+        <div class="form-container">
+            <form id="userForm">
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <!-- Title Field -->
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <!-- Description Field -->
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <!-- Dropdown List -->
+                <div class="form-group">
+                    <label for="clientInfo">Display First:</label>
+                    <select id="clientInfo" name="clientInfo" required>
+                        <option value="" disabled selected>Information</option>
+                        <option value="Client">Customer Basic Information</option>
+                        <option value="Other">Employee Information</option>
+                    </select>
+                </div>
+                <button type="button" class="form-group" id="submitBtn">Submit</button>
+                <!-- Dynamic Content -->
+                <div id="dynamicFields"></div>
+            </form>
+            <div id="output"></div>
+        </div>
+
+        <!-- Right Form (Existing Form) -->
+        <div class="right-form-container">
+            <div class="small-title">Basic User Information Fields</div>
+            <hr>
+            <form id="basicUserForm">
+                <div class="button-group">
+                    <button type="button" id="addBasicUserField">+ Add Basic User Field</button>
+                    <button type="button" id="addFields">+ Add Fields</button>
+                </div>
+                <!-- Additional fields will be added here -->
+                <div id="additionalFields" class="additionalFields"></div>
+            </form>
+        </div>
+
+        <!-- New Form (Other Fields) -->
+        <div class="right-form-container">
+            <div class="small-title">Other Fields</div>
+            <hr>
+            <form id="otherForm">
+                <!-- Button to add field -->
+                <div class="button-group">
+                    <button type="button" id="addFieldsOther">+ Add Fields</button>
+                    <button type="button" id="addConditionalField">+ Add Conditional Field</button>
+                </div>
+                <!-- Additional fields will be added here -->
+                <div id="additionalFieldsOther" class="additionalFields"></div>
+            </form>
+        </div>
+    </div>
+    <!-- Div to display the submitted form data -->
+    <div id="submittedData" style="margin-top: 20px;">
+        <div id="displayData"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
